@@ -10,7 +10,7 @@ import { Input } from "../../components/ui/input"
 import { Label } from "../../components/ui/label"
 import { SelfieCapture } from "../../components/selfie-capture"
 import { ArrowLeft, Camera, Upload } from "lucide-react"
-import Header from "../../components/Header"
+import Header from "../../components/header"
 
 export default function RegisterPage() {
   const router = useRouter()
