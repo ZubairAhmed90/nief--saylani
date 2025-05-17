@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from "react"
 import { useSearchParams } from "next/navigation"
-import Link from "next/link"
-import Image from "next/image"
 import { ArrowLeft, Download, Share2 } from "lucide-react"
 import { Button } from "../../components/ui/button"
 import { ImageModal } from "../../components/image-modal"
+import Image from "next/image"
+import Header from "../../components/header"
 
 export default function MatchedImagesPage() {
   const searchParams = useSearchParams()
@@ -114,30 +114,7 @@ export default function MatchedImagesPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-emerald-50">
-      {/* Mobile-optimized header */}
-      <header className="bg-gradient-to-r from-teal-700 via-teal-600 to-emerald-500 text-white sticky top-0 z-10">
-        <div className="container mx-auto px-3">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center gap-2">
-              <div className="relative h-8 w-8 bg-white rounded-lg overflow-hidden shadow-lg">
-                <Image
-                  src="/placeholder.svg?height=40&width=40"
-                  alt="NIEF SAYLANI Logo"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-teal-100">
-                NIEF SAYLANI
-              </span>
-            </div>
-            <Link href="/" className="flex items-center gap-1 text-white hover:text-teal-100 transition-colors">
-              <ArrowLeft size={14} />
-              <span className="text-sm">Home</span>
-            </Link>
-          </div>
-        </div>
-      </header>
+      <Header showBackLink={true} hideRegisterLink={true} backLinkText="Home" />
 
       <main className="container mx-auto px-3 py-6">
         {/* Welcome Banner - Mobile Optimized */}
@@ -175,7 +152,8 @@ export default function MatchedImagesPage() {
                       <Image
                         src={image.url || "/placeholder.svg"}
                         alt={image.title}
-                        fill
+                        width={800}
+                        height={600}
                         className="object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-2">
