@@ -4,7 +4,7 @@ const ai = new GoogleGenAI({
   apiKey: process.env.NEXT_PUBLIC_GEMINI_API_KEY,
 });
 
-export async function generateText(text) {
+export async function generateText(text: string) {
   const response = await ai.models.generateContent({
     model: "gemini-2.0-flash-001",
     contents: `You are a helpful assistant. Your job is to extract the visitor information from the text and format it into json strcutred format, If you don't find any information, return null for perticular key in the json.

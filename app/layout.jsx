@@ -1,15 +1,15 @@
-import './globals.css'
+import "./globals.css";
 
 export const metadata = {
-  title: 'NEIF Saylani',
-  description: 'Created with v0',
-  generator: 'v0.dev',
-}
+  title: "NEIF Saylani",
+  description: "Created with v0",
+  generator: "v0.dev",
+};
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" data-arp="">
+      <body suppressHydrationWarning>{children}</body>
     </html>
-  )
+  );
 }

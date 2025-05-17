@@ -1,7 +1,7 @@
-import { createWorker } from "tesseract.js";
+import { createWorker, ImageLike } from "tesseract.js";
 import { generateText } from "./gemeni";
 
-export async function performOCR(imageData) {
+export async function performOCR(imageData: ImageLike) {
   const worker = await createWorker("eng");
 
   try {
@@ -18,7 +18,7 @@ export async function performOCR(imageData) {
   }
 }
 
-async function extractVisitorInfo(text) {
+async function extractVisitorInfo(text: string) {
   const response = await generateText(text);
   return response;
 }

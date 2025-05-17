@@ -6,9 +6,8 @@ import {
 import { ref, push } from "firebase/database";
 import { db, rtdb } from "./firebase";
 
-export async function addVisitor(visitorData) {
+export async function addVisitor(visitorData: { [s: string]: unknown; } | ArrayLike<unknown>) {
   try {
-    // Ensure it's a plain object with allowed values
     const sanitizedData = Object.fromEntries(
       Object.entries(visitorData).filter(
         ([_, value]) =>
@@ -18,16 +17,14 @@ export async function addVisitor(visitorData) {
       )
     );
 
-    // Store in Firestore
     const docRef = await addDoc(collection(db, "visitors"), {
       ...sanitizedData,
-      timestamp: serverTimestamp(), // Firebase server timestamp
+      timestamp: serverTimestamp(), 
     });
 
-    // Store in Realtime DB
     await push(ref(rtdb, "visitors"), {
       ...sanitizedData,
-      timestamp: new Date().toISOString(), // ISO timestamp
+      timestamp: new Date().toISOString(), 
     });
 
     return docRef.id;
