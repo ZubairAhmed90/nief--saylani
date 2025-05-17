@@ -2,7 +2,7 @@
 
 import { useRef, useState, useCallback } from "react"
 import Webcam from "react-webcam"
-import { Button } from "@/components/ui/button"
+import { Button } from "../components/ui/button"
 import { Camera, X } from "lucide-react"
 
 interface SelfieCaptureProps {
