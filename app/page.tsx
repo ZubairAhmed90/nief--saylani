@@ -92,7 +92,7 @@ export default function Home() {
               <div className="absolute -inset-1 bg-gradient-to-r from-teal-500 to-emerald-100 rounded-xl  opacity-70 group-hover:opacity-100 "></div>
               <div className="relative h-[300px] rounded-xl overflow-hidden">
                 <Image
-                  src="/grouppic1.jpeg"
+                  src="/pic1.jpeg"
                   alt="Featured Image"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
@@ -115,7 +115,7 @@ export default function Home() {
                   <div className="absolute -inset-1 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-lg blur-sm opacity-70 group-hover:opacity-100 transition-opacity"></div>
                   <div className="relative h-[180px] rounded-lg overflow-hidden">
                     <Image
-                      src={`/placeholder.svg?height=360&width=360&text=Image\ ${item}`}
+                      src={`/pic1.jpeg ${item}`}
                       alt={`Gallery Image ${item}`}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
@@ -137,7 +137,7 @@ export default function Home() {
                   <div className="absolute -inset-1 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-lg blur-sm opacity-70 group-hover:opacity-100 transition-opacity"></div>
                   <div className="relative h-[180px] rounded-lg overflow-hidden">
                     <Image
-                      src={`/placeholder.svg?height=360&width=360&text=Image ${item}`}
+                      src={`/afzal-chamdia.jpg ${item}`}
                       alt={`Gallery Image ${item}`}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
@@ -206,7 +206,7 @@ export default function Home() {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <h2 className="text-2xl font-bold text-center mb-10 bg-clip-text text-transparent bg-gradient-to-r from-teal-800 to-emerald-600">
-            Our Technology Partners
+            Our Partners
           </h2>
           <PartnerScroll />
         </div>

@@ -8,14 +8,14 @@ export function PartnerScroll() {
 
   // Partner logos - replace with actual partner logos
   const partners = [
-    "/placeholder.svg?height=60&width=180",
-    "/placeholder.svg?height=60&width=180",
-    "/placeholder.svg?height=60&width=180",
-    "/placeholder.svg?height=60&width=180",
-    "/placeholder.svg?height=60&width=180",
-    "/placeholder.svg?height=60&width=180",
-    "/placeholder.svg?height=60&width=180",
-    "/placeholder.svg?height=60&width=180",
+    "/meezan.jpeg",
+    "/Faysal-Bank.jpg",
+    "/bank-al-habib.png",
+    "/logo.png",
+    "/dar-ul-uloom-memon.jpeg",
+    "/mcb-bank.jpeg",
+    "/saylani-welfare.jpg",
+    "/sap.jpeg",
   ]
 
   // Duplicate partners for continuous scrolling effect
