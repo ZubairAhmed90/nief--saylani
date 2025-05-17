@@ -1,6 +1,6 @@
-import Image from "next/image"
-import Link from "next/link"
-import { ArrowLeft } from "lucide-react"
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
 export default function Header({ showBackLink = false, hideRegisterLink = false, backLinkText = "Back to Home" }) {
   return (
@@ -8,7 +8,12 @@ export default function Header({ showBackLink = false, hideRegisterLink = false,
       <div className="container mx-auto px-3 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 sm:h-20">
           {/* Logo and Title */}
-          <Link href="/" className="flex items-center gap-2 sm:gap-3 focus:outline-none focus:ring-2 focus:ring-teal-300 rounded-lg" aria-label="Go to Home" tabIndex={0}>
+          <Link
+            href="/"
+            className="flex items-center gap-2 sm:gap-3 focus:outline-none focus:ring-2 focus:ring-teal-300 rounded-lg"
+            aria-label="Go to Home"
+            tabIndex={0}
+          >
             <div className="relative h-8 sm:h-10 w-8 sm:w-10 bg-white rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105">
               <Image
                 src="/logo.png"
@@ -49,5 +54,5 @@ export default function Header({ showBackLink = false, hideRegisterLink = false,
         </div>
       </div>
     </header>
-  )
+  );
 }

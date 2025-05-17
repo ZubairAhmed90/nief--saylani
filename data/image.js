@@ -4,16 +4,16 @@ import img3 from "../public/img3.jpg";
 import img4 from "../public/amjadchamdia.jpg";
 import img5 from "../public/bashirfarooqi.jpg";
 import img6 from "../public/madnibhai.jpg";
-import partner1 from "../public/partner/01.png";
-import partner2 from "../public/partner/02.png";
-import partner3 from "../public/partner/03.png";
-import partner4 from "../public/partner/04.png";
-import partner5 from "../public/partner/05.png";
-import partner6 from "../public/partner/06.png";
-import partner7 from "../public/partner/07.png";
-import partner8 from "../public/partner/08.png";
-import partner9 from "../public/partner/09.png";
-import partner10 from "../public/partner/10.png";
+import partner1 from "../public/Faysal-Bank.jpg";
+import partner2 from "../public/bank-al-habib.png";
+import partner3 from "../public/mcb-bank.jpeg";
+import partner4 from "../public/meezan.jpeg";
+import partner5 from "../public/dar-ul-uloom-memon.jpeg";
+import partner6 from "../public/sap.jpeg";
+import partner7 from "../public/saylani-welfare.jpg";
+import partner8 from "../public/partner/01.png";
+import partner9 from "../public/partner/02.png";
+import partner10 from "../public/partner/03.png";
 
 
 export const galleryImages = [

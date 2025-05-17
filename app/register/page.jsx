@@ -1,6 +1,5 @@
 "use client"
 
-import type React from "react"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
@@ -8,7 +7,9 @@ import { Button } from "../../components/ui/button"
 import { Input } from "../../components/ui/input"
 import { Label } from "../../components/ui/label"
 import { SelfieCapture } from "../../components/selfie-capture"
-import {  Camera, Upload } from "lucide-react"
+import { Camera, Upload } from "lucide-react"
+import { db } from "../../lib/firebase" // Ensure this is the correct Firestore instance
+import { collection, addDoc, serverTimestamp } from "firebase/firestore"
 
 export default function RegisterPage() {
   const router = useRouter()
@@ -17,53 +18,59 @@ export default function RegisterPage() {
     email: "",
     phone: "",
   })
-  const [image, setImage] = useState<string | null>(null)
+  const [image, setImage] = useState(null)
   const [showSelfieCapture, setShowSelfieCapture] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
       const reader = new FileReader()
       reader.onload = (event) => {
         if (event.target) {
-          setImage(event.target.result as string)
+          setImage(event.target.result)
         }
       }
       reader.readAsDataURL(e.target.files[0])
     }
   }
 
-  const handleSelfieCapture = (imageSrc: string) => {
+  const handleSelfieCapture = (imageSrc) => {
     setImage(imageSrc)
     setShowSelfieCapture(false)
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Here you would typically send the data to your backend
-    console.log({ ...formData, image })
+    try {
+      // Save data to Firestore
+      const docRef = await addDoc(collection(db, "registrations"), {
+        ...formData,
+        imageUrl: image || null, // Handle case where image might be null
+        timestamp: serverTimestamp(), // Use serverTimestamp for consistency
+      })
+      console.log("Document written with ID: ", docRef.id)
 
-    // Simulate API call with timeout
-    setTimeout(() => {
-      // Redirect to matched images page with the user's data
+      // Redirect to matched images page
       router.push(`/matched-images?name=${encodeURIComponent(formData.name)}`)
-    }, 1000)
+    } catch (error) {
+      console.error("Error adding document: ", error)
+      setIsSubmitting(false)
+    }
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br flex item-center  from-teal-50 via-white to-emerald-50">
-
-      <main className="container mx-auto px-4 py-12 ">
-        <div className="max-w-5xl flex item-center mx-auto ">
+    <div className="min-h-screen bg-gradient-to-br flex item-center from-teal-50 via-white to-emerald-50">
+      <main className="container mx-auto px-4 py-12">
+        <div className="max-w-5xl flex item-center mx-auto">
           {/* Registration Card with Gradient Border */}
-          <div className="relative ">
+          <div className="relative">
             <div className="absolute -inset-1 bg-gradient-to-r from-teal-200 to-emerald-200 rounded-3xl blur-sm"></div>
             <div className="relative bg-white rounded-3xl overflow-hidden shadow-xl">
               <div className="md:flex">

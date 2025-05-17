@@ -2,18 +2,7 @@
 import Image from "next/image"
 import { X, Download, Share2 } from "lucide-react"
 
-interface ImageModalProps {
-  isOpen: boolean
-  onClose: () => void
-  image: {
-    id: number
-    title: string
-    category: string
-    url: string
-  }
-}
-
-export function ImageModal({ isOpen, onClose, image }: ImageModalProps) {
+export function ImageModal({ isOpen, onClose, image }) {
   if (!isOpen) return null
 
   return (

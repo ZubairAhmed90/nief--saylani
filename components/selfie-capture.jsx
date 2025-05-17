@@ -2,16 +2,11 @@
 
 import { useRef, useState, useCallback } from "react"
 import Webcam from "react-webcam"
-import { Button } from "../components/ui/button"
+import { Button } from "./ui/button"
 import { Camera, X } from "lucide-react"
 
-interface SelfieCaptureProps {
-  onCapture: (imageSrc: string) => void
-  onCancel: () => void
-}
-
-export function SelfieCapture({ onCapture, onCancel }: SelfieCaptureProps) {
-  const webcamRef = useRef<Webcam>(null)
+export function SelfieCapture({ onCapture, onCancel }) {
+  const webcamRef = useRef(null)
   const [isCameraReady, setIsCameraReady] = useState(false)
 
   const capture = useCallback(() => {
@@ -21,7 +16,7 @@ export function SelfieCapture({ onCapture, onCancel }: SelfieCaptureProps) {
         onCapture(imageSrc)
       }
     }
-  }, [webcamRef, onCapture])
+  }, [onCapture])
 
   return (
     <div className="space-y-4">

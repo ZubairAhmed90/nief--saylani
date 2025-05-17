@@ -12,12 +12,7 @@ export default function MatchedImagesPage() {
   const searchParams = useSearchParams()
   const userName = searchParams.get("name") || "User"
   const [isLoading, setIsLoading] = useState(true)
-  const [selectedImage, setSelectedImage] = useState<null | {
-    id: number
-    title: string
-    category: string
-    url: string
-  }>(null)
+  const [selectedImage, setSelectedImage] = useState(null)
 
   // Simulated matched images based on selfie
   const matchedImages = [
@@ -104,7 +99,7 @@ export default function MatchedImagesPage() {
     return () => clearTimeout(timer)
   }, [])
 
-  const openImageModal = (image: (typeof matchedImages)[0]) => {
+  const openImageModal = (image) => {
     setSelectedImage(image)
   }
 

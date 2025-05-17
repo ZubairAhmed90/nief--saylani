@@ -28,7 +28,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "app/register/page.jsx", "app/layout.jsx", "app/page.jsx", "app/matched-images/page.jsx", "app/matched-images/loading.jsx", "components/header.jsx", "components/image-modal.jsx", "components/partner-scroll.jsx", "components/selfie-capture.jsx", "components/theme-provider.jsx", "lib/utils.js"  ],
   "exclude": [
     "node_modules"
   ]
