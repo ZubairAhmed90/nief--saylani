@@ -68,7 +68,7 @@ export default function RegisterPage() {
             <Link href="/" className="flex items-center gap-3">
               <div className="relative h-10 w-10 bg-white rounded-lg overflow-hidden shadow-lg">
                 <Image
-                  src="/placeholder.svg?height=40&width=40"
+                  src="/logo.png"
                   alt="NIEF SAYLANI Logo"
                   fill
                   className="object-cover"
