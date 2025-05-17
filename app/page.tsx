@@ -1,42 +1,18 @@
 import Image from "next/image"
 import Link from "next/link"
 import { PartnerScroll } from "../components/partner-scroll"
+import Header from "../components/header"
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-white">
-      {/* Header with gradient */}
-      <header className="bg-gradient-to-r from-teal-700 via-teal-600 to-emerald-500 text-white">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center h-20">
-            <div className="flex items-center gap-3">
-              <div className="relative h-10 w-10 bg-white rounded-lg overflow-hidden shadow-lg">
-                <Image
-                  src="/logo.png"
-                  alt="NIEF SAYLANI Logo"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-teal-100">
-                NIEF SAYLANI
-              </span>
-            </div>
-            <Link
-              href="/register"
-              className="px-6 py-2 bg-white text-teal-600 rounded-full font-medium hover:shadow-lg transition-all duration-300 hover:scale-105"
-            >
-              Register
-            </Link>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       {/* Hero Section with gradient */}
       <section className="relative py-20 overflow-hidden bg-gradient-to-b from-teal-50 to-white">
         <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-teal-700/10 to-transparent h-100vh"></div>
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-3xl mx-auto text-center mb-16  h-[530px] mt-20">
+          <div className="max-w-3xl mx-auto text-center mb-16 h-[530px] mt-20">
             <div className="inline-block mb-4 px-6 py-2 bg-gradient-to-r from-teal-500 to-emerald-400 rounded-full text-white text-sm font-medium">
               Simple & Fast
             </div>

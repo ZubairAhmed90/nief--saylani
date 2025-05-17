@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
@@ -11,6 +10,7 @@ import { Input } from "../../components/ui/input"
 import { Label } from "../../components/ui/label"
 import { SelfieCapture } from "../../components/selfie-capture"
 import { ArrowLeft, Camera, Upload } from "lucide-react"
+import Header from "../../components/Header"
 
 export default function RegisterPage() {
   const router = useRouter()
@@ -61,30 +61,7 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-emerald-50">
-      {/* Header with gradient */}
-      <header className="bg-gradient-to-r from-teal-700 via-teal-600 to-emerald-500 text-white">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center h-20">
-            <Link href="/" className="flex items-center gap-3">
-              <div className="relative h-10 w-10 bg-white rounded-lg overflow-hidden shadow-lg">
-                <Image
-                  src="/logo.png"
-                  alt="NIEF SAYLANI Logo"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-teal-100">
-                NIEF SAYLANI
-              </span>
-            </Link>
-            <Link href="/" className="flex items-center gap-2 text-white hover:text-teal-100 transition-colors">
-              <ArrowLeft size={16} />
-              <span>Back to Home</span>
-            </Link>
-          </div>
-        </div>
-      </header>
+      <Header showBackLink={true} hideRegisterLink={true} />
 
       <main className="container mx-auto px-4 py-12">
         <div className="max-w-5xl mx-auto">
