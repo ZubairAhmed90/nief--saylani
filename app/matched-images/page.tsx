@@ -5,8 +5,8 @@ import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
 import { ArrowLeft, Download, Share2 } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { ImageModal } from "@/components/image-modal"
+import { Button } from "../../components/ui/button"
+import { ImageModal } from "../../components/image-modal"
 
 export default function MatchedImagesPage() {
   const searchParams = useSearchParams()
