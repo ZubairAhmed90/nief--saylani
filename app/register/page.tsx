@@ -3,14 +3,12 @@
 import type React from "react"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import Link from "next/link"
 import Image from "next/image"
 import { Button } from "../../components/ui/button"
 import { Input } from "../../components/ui/input"
 import { Label } from "../../components/ui/label"
 import { SelfieCapture } from "../../components/selfie-capture"
-import { ArrowLeft, Camera, Upload } from "lucide-react"
-import Header from "../../components/header"
+import {  Camera, Upload } from "lucide-react"
 
 export default function RegisterPage() {
   const router = useRouter()
@@ -60,14 +58,13 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-emerald-50">
-      <Header showBackLink={true} hideRegisterLink={true} />
+    <div className="min-h-screen bg-gradient-to-br flex item-center  from-teal-50 via-white to-emerald-50">
 
-      <main className="container mx-auto px-4 py-12">
-        <div className="max-w-5xl mx-auto">
+      <main className="container mx-auto px-4 py-12 ">
+        <div className="max-w-5xl flex item-center mx-auto ">
           {/* Registration Card with Gradient Border */}
-          <div className="relative">
-            <div className="absolute -inset-1 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-3xl blur-sm"></div>
+          <div className="relative ">
+            <div className="absolute -inset-1 bg-gradient-to-r from-teal-200 to-emerald-200 rounded-3xl blur-sm"></div>
             <div className="relative bg-white rounded-3xl overflow-hidden shadow-xl">
               <div className="md:flex">
                 {/* Left Side - Image and Info */}
