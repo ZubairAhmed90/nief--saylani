@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, ChangeEvent, FormEvent } from "react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
 import { Button } from "../../components/ui/button"
@@ -8,56 +8,62 @@ import { Input } from "../../components/ui/input"
 import { Label } from "../../components/ui/label"
 import { SelfieCapture } from "../../components/selfie-capture"
 import { Camera, Upload } from "lucide-react"
-import { db } from "../../lib/firebase" // Ensure this is the correct Firestore instance
+import { db } from "../../lib/firebase"
 import { collection, addDoc, serverTimestamp } from "firebase/firestore"
+
+interface FormData {
+  name: string
+  email: string
+  phone: string
+}
 
 export default function RegisterPage() {
   const router = useRouter()
-  const [formData, setFormData] = useState({
+
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
     phone: "",
   })
-  const [image, setImage] = useState(null)
+
+  const [image, setImage] = useState<string | null>(null)
   const [showSelfieCapture, setShowSelfieCapture] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleImageChange = (e) => {
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const reader = new FileReader()
       reader.onload = (event) => {
-        if (event.target) {
-          setImage(event.target.result)
+        if (event.target?.result) {
+          setImage(event.target.result as string)
         }
       }
       reader.readAsDataURL(e.target.files[0])
     }
   }
 
-  const handleSelfieCapture = (imageSrc) => {
+  const handleSelfieCapture = (imageSrc: string) => {
     setImage(imageSrc)
     setShowSelfieCapture(false)
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsSubmitting(true)
 
     try {
-      // Save data to Firestore
       const docRef = await addDoc(collection(db, "registrations"), {
         ...formData,
-        imageUrl: image || null, // Handle case where image might be null
-        timestamp: serverTimestamp(), // Use serverTimestamp for consistency
+        imageUrl: image || null,
+        timestamp: serverTimestamp(),
       })
       console.log("Document written with ID: ", docRef.id)
 
-      // Redirect to matched images page
       router.push(`/matched-images?name=${encodeURIComponent(formData.name)}`)
     } catch (error) {
       console.error("Error adding document: ", error)
@@ -69,12 +75,11 @@ export default function RegisterPage() {
     <div className="min-h-screen bg-gradient-to-br flex item-center from-teal-50 via-white to-emerald-50">
       <main className="container mx-auto px-4 py-12">
         <div className="max-w-5xl flex item-center mx-auto">
-          {/* Registration Card with Gradient Border */}
           <div className="relative">
             <div className="absolute -inset-1 bg-gradient-to-r from-teal-200 to-emerald-200 rounded-3xl blur-sm"></div>
             <div className="relative bg-white rounded-3xl overflow-hidden shadow-xl">
               <div className="md:flex">
-                {/* Left Side - Image and Info */}
+                {/* Left Side */}
                 <div className="md:w-5/12 bg-gradient-to-br from-teal-600 to-emerald-500 text-white p-8 flex flex-col justify-between">
                   <div>
                     <h2 className="text-3xl font-bold mb-4">Get Your Images With A Selfie</h2>
@@ -83,100 +88,61 @@ export default function RegisterPage() {
                     </p>
 
                     <div className="space-y-6 mt-8">
-                      <div className="flex items-start gap-3">
-                        <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center shrink-0">
-                          <span className="text-sm font-bold">1</span>
+                      {[1, 2, 3].map((step, idx) => (
+                        <div key={step} className="flex items-start gap-3">
+                          <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+                            <span className="text-sm font-bold">{step}</span>
+                          </div>
+                          <div>
+                            <h3 className="font-semibold">
+                              {["Create Account", "Take a Selfie", "Access Your Images"][idx]}
+                            </h3>
+                            <p className="text-sm text-teal-100">
+                              {[
+                                "Fill in your details to register",
+                                "Use our camera to capture your selfie",
+                                "Get instant access to your collection",
+                              ][idx]}
+                            </p>
+                          </div>
                         </div>
-                        <div>
-                          <h3 className="font-semibold">Create Account</h3>
-                          <p className="text-sm text-teal-100">Fill in your details to register</p>
-                        </div>
-                      </div>
-
-                      <div className="flex items-start gap-3">
-                        <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center shrink-0">
-                          <span className="text-sm font-bold">2</span>
-                        </div>
-                        <div>
-                          <h3 className="font-semibold">Take a Selfie</h3>
-                          <p className="text-sm text-teal-100">Use our camera to capture your selfie</p>
-                        </div>
-                      </div>
-
-                      <div className="flex items-start gap-3">
-                        <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center shrink-0">
-                          <span className="text-sm font-bold">3</span>
-                        </div>
-                        <div>
-                          <h3 className="font-semibold">Access Your Images</h3>
-                          <p className="text-sm text-teal-100">Get instant access to your collection</p>
-                        </div>
-                      </div>
+                      ))}
                     </div>
                   </div>
                 </div>
 
-                {/* Right Side - Form */}
+                {/* Right Side */}
                 <div className="md:w-7/12 p-8">
                   <div className="max-w-md mx-auto">
                     <h3 className="text-2xl font-bold text-teal-800 mb-6">Create Your Account</h3>
 
                     <form onSubmit={handleSubmit} className="space-y-6">
-                      <div className="space-y-2">
-                        <Label htmlFor="name" className="text-gray-700">
-                          Full Name
-                        </Label>
-                        <Input
-                          id="name"
-                          name="name"
-                          placeholder="Enter your full name"
-                          required
-                          value={formData.name}
-                          onChange={handleInputChange}
-                          className="border-gray-300 focus:border-teal-500 rounded-lg"
-                        />
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="email" className="text-gray-700">
-                          Email Address
-                        </Label>
-                        <Input
-                          id="email"
-                          name="email"
-                          type="email"
-                          placeholder="Enter your email"
-                          required
-                          value={formData.email}
-                          onChange={handleInputChange}
-                          className="border-gray-300 focus:border-teal-500 rounded-lg"
-                        />
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="phone" className="text-gray-700">
-                          Phone Number
-                        </Label>
-                        <Input
-                          id="phone"
-                          name="phone"
-                          placeholder="Enter your phone number"
-                          required
-                          value={formData.phone}
-                          onChange={handleInputChange}
-                          className="border-gray-300 focus:border-teal-500 rounded-lg"
-                        />
-                      </div>
+                      {["name", "email", "phone"].map((field) => (
+                        <div className="space-y-2" key={field}>
+                          <Label htmlFor={field} className="text-gray-700">
+                            {field === "name" ? "Full Name" : field === "email" ? "Email Address" : "Phone Number"}
+                          </Label>
+                          <Input
+                            id={field}
+                            name={field}
+                            type={field === "email" ? "email" : "text"}
+                            placeholder={`Enter your ${field}`}
+                            required
+                            value={(formData as any)[field]}
+                            onChange={handleInputChange}
+                            className="border-gray-300 focus:border-teal-500 rounded-lg"
+                          />
+                        </div>
+                      ))}
 
                       <div className="space-y-3">
                         <Label className="text-gray-700">Profile Image (Optional)</Label>
-
                         <div className="flex flex-col gap-4">
                           {image ? (
                             <div className="flex flex-col items-center">
                               <div className="relative h-32 w-32 rounded-full overflow-hidden border-4 border-gradient-to-r from-teal-500 to-emerald-500">
                                 <Image
-                                  src={image || "/placeholder.svg"}
+                                  src={image}
                                   alt="Profile Preview"
                                   fill
                                   className="object-cover"

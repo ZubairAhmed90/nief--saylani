@@ -1,12 +1,27 @@
-"use client"
-import Image from "next/image"
-import { X, Download, Share2 } from "lucide-react"
+"use client";
+import Image from "next/image";
+import { X, Download, Share2 } from "lucide-react";
 
-export function ImageModal({ isOpen, onClose, image }) {
-  if (!isOpen) return null
+interface ImageType {
+  url?: string;
+  title: string;
+  category?: string;
+}
+
+interface ImageModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  image: ImageType;
+}
+
+export function ImageModal({ isOpen, onClose, image }: ImageModalProps) {
+  if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4" onClick={onClose}>
+    <div
+      className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4"
+      onClick={onClose}
+    >
       <div
         className="relative max-w-lg w-full bg-white rounded-xl overflow-hidden shadow-2xl"
         onClick={(e) => e.stopPropagation()}
@@ -19,7 +34,12 @@ export function ImageModal({ isOpen, onClose, image }) {
         </button>
 
         <div className="relative aspect-square w-full">
-          <Image src={image.url || "/placeholder.svg"} alt={image.title} fill className="object-contain" />
+          <Image
+            src={image.url || "/placeholder.svg"}
+            alt={image.title}
+            fill
+            className="object-contain"
+          />
         </div>
 
         <div className="p-4 bg-white">
@@ -39,5 +59,5 @@ export function ImageModal({ isOpen, onClose, image }) {
         </div>
       </div>
     </div>
-  )
+  );
 }

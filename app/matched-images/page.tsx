@@ -8,14 +8,20 @@ import { ImageModal } from "../../components/image-modal"
 import Image from "next/image"
 import Header from "../../components/header"
 
+interface MatchedImage {
+  id: number
+  title: string
+  category: string
+  url: string
+}
+
 export default function MatchedImagesPage() {
   const searchParams = useSearchParams()
   const userName = searchParams.get("name") || "User"
-  const [isLoading, setIsLoading] = useState(true)
-  const [selectedImage, setSelectedImage] = useState(null)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [selectedImage, setSelectedImage] = useState<MatchedImage | null>(null)
 
-  // Simulated matched images based on selfie
-  const matchedImages = [
+  const matchedImages: MatchedImage[] = [
     {
       id: 1,
       title: "Mountain Landscape",
@@ -91,7 +97,6 @@ export default function MatchedImagesPage() {
   ]
 
   useEffect(() => {
-    // Simulate loading time
     const timer = setTimeout(() => {
       setIsLoading(false)
     }, 1500)
@@ -99,7 +104,7 @@ export default function MatchedImagesPage() {
     return () => clearTimeout(timer)
   }, [])
 
-  const openImageModal = (image) => {
+  const openImageModal = (image: MatchedImage) => {
     setSelectedImage(image)
   }
 
@@ -112,7 +117,6 @@ export default function MatchedImagesPage() {
       <Header showBackLink={true} hideRegisterLink={true} backLinkText="Home" />
 
       <main className="container mx-auto px-3 py-6">
-        {/* Welcome Banner - Mobile Optimized */}
         <div className="relative mb-6">
           <div className="absolute -inset-1 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-xl blur-sm"></div>
           <div className="relative bg-white rounded-xl overflow-hidden shadow-lg">
@@ -125,7 +129,6 @@ export default function MatchedImagesPage() {
           </div>
         </div>
 
-        {/* Matched Images Gallery */}
         {isLoading ? (
           <div className="flex flex-col items-center justify-center py-12">
             <div className="w-12 h-12 border-3 border-teal-500 border-t-transparent rounded-full animate-spin mb-3"></div>
@@ -137,7 +140,6 @@ export default function MatchedImagesPage() {
               Your Matched Images
             </h2>
 
-            {/* Mobile-optimized gallery */}
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-4">
               {matchedImages.map((image) => (
                 <div key={image.id} className="group relative" onClick={() => openImageModal(image)}>
@@ -145,7 +147,7 @@ export default function MatchedImagesPage() {
                   <div className="relative bg-white rounded-lg overflow-hidden shadow-md">
                     <div className="relative aspect-square overflow-hidden">
                       <Image
-                        src={image.url || "/placeholder.svg"}
+                        src={image.url}
                         alt={image.title}
                         width={800}
                         height={600}
@@ -161,7 +163,7 @@ export default function MatchedImagesPage() {
                         className="text-teal-600 hover:text-teal-800 transition-colors"
                         onClick={(e) => {
                           e.stopPropagation()
-                          // Download logic would go here
+                          // Download logic
                         }}
                       >
                         <Download size={14} />
@@ -170,7 +172,7 @@ export default function MatchedImagesPage() {
                         className="text-teal-600 hover:text-teal-800 transition-colors"
                         onClick={(e) => {
                           e.stopPropagation()
-                          // Share logic would go here
+                          // Share logic
                         }}
                       >
                         <Share2 size={14} />
@@ -181,7 +183,6 @@ export default function MatchedImagesPage() {
               ))}
             </div>
 
-            {/* View more button */}
             <div className="mt-8 text-center">
               <Button className="bg-gradient-to-r from-teal-600 to-emerald-500 hover:from-teal-700 hover:to-emerald-600 text-white">
                 View More Images
@@ -191,7 +192,6 @@ export default function MatchedImagesPage() {
         )}
       </main>
 
-      {/* Image Modal */}
       {selectedImage && <ImageModal isOpen={!!selectedImage} onClose={closeImageModal} image={selectedImage} />}
     </div>
   )

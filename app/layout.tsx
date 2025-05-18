@@ -1,4 +1,5 @@
 import "./globals.css";
+import type { ReactNode } from "react";
 
 export const metadata = {
   title: "NEIF Saylani",
@@ -6,7 +7,11 @@ export const metadata = {
   generator: "v0.dev",
 };
 
-export default function RootLayout({ children }) {
+interface RootLayoutProps {
+  children: ReactNode;
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" data-arp="">
       <body suppressHydrationWarning>{children}</body>

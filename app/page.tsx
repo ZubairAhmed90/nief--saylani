@@ -3,10 +3,19 @@ import Link from "next/link";
 import { PartnerScroll } from "../components/partner-scroll";
 import Header from "../components/header";
 import { galleryImages } from "../data/image";
+import type { StaticImageData } from "next/image";
 
-export default function Home() {
-  const previewImages = galleryImages.slice(0, 7);
-  
+export interface GalleryImage {
+  id: number;
+  src: string | StaticImageData; // allow both
+  alt: string;
+  title: string;
+  description?: string;
+}
+
+
+const Home: React.FC = () => {
+  const previewImages: GalleryImage[] = galleryImages.slice(0, 7);
 
   return (
     <div className="min-h-screen bg-white">
@@ -82,7 +91,7 @@ export default function Home() {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <h2 className="text-2xl md:text-4xl font-bold text-center mb-10 bg-clip-text text-transparent bg-gradient-to-r from-teal-800 to-emerald-600">
-            Our Technology Partners
+            Our  Partners
           </h2>
           <PartnerScroll />
         </div>
@@ -178,4 +187,6 @@ export default function Home() {
       </section>
     </div>
   );
-}
+};
+
+export default Home;

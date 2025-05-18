@@ -28,7 +28,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "app/register/page.jsx", "app/layout.jsx", "app/page.jsx", "app/matched-images/page.jsx", "app/matched-images/loading.jsx", "components/header.jsx", "components/image-modal.jsx", "components/partner-scroll.jsx", "components/selfie-capture.jsx", "components/theme-provider.jsx", "lib/utils.ts"  ],
+, "app/register/page.tsx", "app/layout.tsx", "app/page.tsx", "app/matched-images/page.tsx", "app/matched-images/loading.tsx", "components/header.tsx", "components/image-modal.tsx", "components/partner-scroll.jsx", "components/selfie-capture.tsx", "components/theme-provider.tsx", "lib/utils.ts"  ],
   "exclude": [
     "node_modules"
   ]

@@ -1,22 +1,28 @@
-"use client"
+"use client";
 
-import { useRef, useState, useCallback } from "react"
-import Webcam from "react-webcam"
-import { Button } from "./ui/button"
-import { Camera, X } from "lucide-react"
+import { useRef, useState, useCallback } from "react";
+import Webcam from "react-webcam";
+import { Button } from "./ui/button";
+import { Camera, X } from "lucide-react";
 
-export function SelfieCapture({ onCapture, onCancel }) {
-  const webcamRef = useRef(null)
-  const [isCameraReady, setIsCameraReady] = useState(false)
+interface SelfieCaptureProps {
+  onCapture: (imageSrc: string) => void;
+  onCancel: () => void;
+}
+
+export function SelfieCapture({ onCapture, onCancel }: SelfieCaptureProps) {
+  // Define ref type for Webcam
+  const webcamRef = useRef<Webcam | null>(null);
+  const [isCameraReady, setIsCameraReady] = useState(false);
 
   const capture = useCallback(() => {
     if (webcamRef.current) {
-      const imageSrc = webcamRef.current.getScreenshot()
+      const imageSrc = webcamRef.current.getScreenshot();
       if (imageSrc) {
-        onCapture(imageSrc)
+        onCapture(imageSrc);
       }
     }
-  }, [onCapture])
+  }, [onCapture]);
 
   return (
     <div className="space-y-4">
@@ -59,5 +65,5 @@ export function SelfieCapture({ onCapture, onCancel }) {
         </Button>
       </div>
     </div>
-  )
+  );
 }
