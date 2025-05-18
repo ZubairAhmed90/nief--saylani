@@ -9,11 +9,14 @@ const firebaseConfig = {
   storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-  databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL || 
-              `https://${process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID}-default-rtdb.firebaseio.com`
+  databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL,
 };
 
-// Initialize Firebase only on client side
+// Throw clear error if env vars are missing
+if (typeof window !== 'undefined' && !firebaseConfig.apiKey) {
+  throw new Error("Firebase API Key is missing. Check your .env file.");
+}
+
 let app: FirebaseApp;
 let db: Firestore;
 let rtdb: Database;
