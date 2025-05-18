@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@firebase/app": "^0.12.3",
+    "@firebase/database": "^1.0.17",
+    "@firebase/firestore": "^4.7.14",
     "@google/genai": "^0.14.1",
     "@google/generative-ai": "^0.24.1",
     "@hookform/resolvers": "^3.9.1",
