@@ -4,6 +4,7 @@ import img3 from "../public/img3.jpg";
 import img4 from "../public/amjadchamdia.jpg";
 import img5 from "../public/bashirfarooqi.jpg";
 import img6 from "../public/madnibhai.jpg";
+import img7 from "../public/group.jpg";
 import partner1 from "../public/Faysal-Bank.jpg";
 import partner2 from "../public/bank-al-habib.png";
 import partner3 from "../public/mcb-bank.jpeg";
@@ -57,6 +58,13 @@ export const galleryImages = [
     src: img6,
     alt: "Madni Bhai",
     title: "Madni Bhai",
+    description: "Creative portfolio"
+  },
+  {
+    id: 7,
+    src: img7,
+    alt: "Group photo",
+    title: "Group photo",
     description: "Creative portfolio"
   },
  

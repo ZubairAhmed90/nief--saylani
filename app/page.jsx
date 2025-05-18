@@ -5,8 +5,8 @@ import Header from "../components/header";
 import { galleryImages } from "../data/image";
 
 export default function Home() {
-  const previewImages = galleryImages.slice(0, 6);
-  console.log(previewImages);
+  const previewImages = galleryImages.slice(0, 7);
+  
 
   return (
     <div className="min-h-screen bg-white">
@@ -48,7 +48,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="relative mt-28 mx-5">
+          <div className="relative mt-28 sm:mx-5">
             <div className="absolute -inset-2 bg-gradient-to-r from-teal-100 to-emerald-100 rounded-3xl blur-sm opacity-75"></div>
             <div className="relative h-[400px] md:h-[550px] rounded-2xl overflow-hidden shadow-2xl w-full">
               <Image
@@ -90,82 +90,42 @@ export default function Home() {
 
       {/* L-shaped Picture Gallery */}
       <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-5xl font-bold text-center mb-4 bg-clip-text text-transparent bg-gradient-to-r from-teal-800 to-emerald-600">
+        <div className="container mx-auto px-4 ">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 bg-clip-text text-transparent bg-gradient-to-r from-teal-800 to-emerald-600">
             Our Picture Gallery
           </h2>
           <p className="text-center text-gray-600 max-w-2xl mx-auto mb-16">
-            Explore our collection of stunning images available through our platform
+            Explore our collection of stunning images available through our
+            platform
           </p>
 
-          {/* L-shaped Gallery Layout - Optimized for 6 images */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mx-5">
-            {/* Featured Image (Image 1) */}
-            <div className="md:col-span-3 relative group">
-              <div className="absolute -inset-1 bg-gradient-to-r from-teal-500 to-emerald-100 rounded-xl opacity-70 group-hover:opacity-100"></div>
-              <div className="relative h-[300px] rounded-xl overflow-hidden">
-                <Image
-                  src={previewImages[0].src}
-                  alt={previewImages[0].alt}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-teal-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
-                  <div className="p-6 text-white">
-                    <h3 className="text-xl font-bold">{previewImages[0].title}</h3>
-                    <p className="text-sm text-teal-100">
-                      {previewImages[0].description}
-                    </p>
+          {/* Professional Responsive Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:mx-5">
+            {previewImages.map((image, index) => (
+              <div
+                key={image.id}
+                className={`relative group ${
+                  index === 0
+                    ? "sm:col-span-2 lg:col-span-3 h-[300px]"
+                    : "h-[200px]"
+                }`}
+              >
+                <div className="absolute -inset-1 bg-gradient-to-r from-teal-300 to-emerald-300 rounded-xl blur-sm opacity-70 group-hover:opacity-100 transition-opacity"></div>
+                <div className="relative w-full h-full rounded-xl overflow-hidden">
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-teal-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
+                    <div className="p-4 text-white">
+                      <h3 className="text-lg font-semibold">{image.title}</h3>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-
-            {/* Vertical Column (Images 2-3) */}
-            <div className="space-y-4">
-              {previewImages.slice(1, 3).map((image) => (
-                <div key={image.id} className="relative group">
-                  <div className="absolute -inset-1 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-lg blur-sm opacity-70 group-hover:opacity-100 transition-opacity"></div>
-                  <div className="relative h-[180px] rounded-lg overflow-hidden">
-                    <Image
-                      src={image.src}
-                      alt={image.alt}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-teal-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
-                      <div className="p-4 text-white">
-                        <h3 className="text-sm font-bold">{image.title}</h3>
-                        <p className="text-xs text-teal-100">{image.description}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Horizontal Grid (Images 4-6) */}
-            <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
-              {previewImages.slice(3).map((image) => (
-                <div key={image.id} className="relative group">
-                  <div className="absolute -inset-1 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-lg blur-sm opacity-70 group-hover:opacity-100 transition-opacity"></div>
-                  <div className="relative h-[180px] rounded-lg overflow-hidden">
-                    <Image
-                      src={image.src}
-                      alt={image.alt}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-teal-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
-                      <div className="p-4 text-white">
-                        <h3 className="text-sm font-bold">{image.title}</h3>
-                        <p className="text-xs text-teal-100">{image.description}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -173,7 +133,7 @@ export default function Home() {
       {/* How It Works with gradient numbers */}
       <section className="py-20 bg-gradient-to-b from-white to-teal-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-teal-800 to-emerald-600">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-teal-800 to-emerald-600">
             How It Works
           </h2>
 
