@@ -1,8 +1,6 @@
-// lib/firebase.ts
-
-import { initializeApp, getApps } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import { getDatabase } from "firebase/database";
+import { initializeApp, getApps, FirebaseApp } from "firebase/app";
+import { Firestore, getFirestore } from "firebase/firestore";
+import { Database, getDatabase } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY!,
@@ -14,8 +12,19 @@ const firebaseConfig = {
   databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL!,
 };
 
-const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
-const db = getFirestore(app);
-const rtdb = getDatabase(app);
+// Throw clear error if env vars are missing
+if (typeof window !== 'undefined' && !firebaseConfig.apiKey) {
+  throw new Error("Firebase API Key is missing. Check your .env file.");
+}
+
+let app: FirebaseApp;
+let db: Firestore;
+let rtdb: Database;
+
+if (typeof window !== 'undefined') {
+  app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+  db = getFirestore(app);
+  rtdb = getDatabase(app);
+}
 
 export { db, rtdb };
