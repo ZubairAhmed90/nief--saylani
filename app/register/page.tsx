@@ -1,80 +1,93 @@
-"use client"
+"use client";
 
-import { useState, ChangeEvent, FormEvent } from "react"
-import { useRouter } from "next/navigation"
-import Image from "next/image"
-import { Button } from "../../components/ui/button"
-import { Input } from "../../components/ui/input"
-import { Label } from "../../components/ui/label"
-import { SelfieCapture } from "../../components/selfie-capture"
-import { Camera, Upload } from "lucide-react"
-import { db } from "../../lib/firebase"
-import { collection, addDoc, serverTimestamp } from "firebase/firestore"
+import { useState, ChangeEvent, FormEvent, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { Button } from "../../components/ui/button";
+import { Input } from "../../components/ui/input";
+import { Label } from "../../components/ui/label";
+import { SelfieCapture } from "../../components/selfie-capture";
+import { Camera, Upload } from "lucide-react";
+import { db } from "../../lib/firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 interface FormData {
-  name: string
-  email: string
-  phone: string
+  name: string;
+  email: string;
+  phone: string;
 }
 
 export default function RegisterPage() {
-  const router = useRouter()
+  const router = useRouter();
+  const [firebaseReady, setFirebaseReady] = useState(false);
 
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
     phone: "",
-  })
+  });
 
-  const [image, setImage] = useState<string | null>(null)
-  const [showSelfieCapture, setShowSelfieCapture] = useState(false)
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [image, setImage] = useState<string | null>(null);
+  const [showSelfieCapture, setShowSelfieCapture] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    // Check if Firebase is initialized
+    if (typeof window !== 'undefined' && db) {
+      setFirebaseReady(true);
+    }
+  }, []);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      const reader = new FileReader()
+      const reader = new FileReader();
       reader.onload = (event) => {
         if (event.target?.result) {
-          setImage(event.target.result as string)
+          setImage(event.target.result as string);
         }
-      }
-      reader.readAsDataURL(e.target.files[0])
+      };
+      reader.readAsDataURL(e.target.files[0]);
     }
-  }
+  };
 
   const handleSelfieCapture = (imageSrc: string) => {
-    setImage(imageSrc)
-    setShowSelfieCapture(false)
-  }
+    setImage(imageSrc);
+    setShowSelfieCapture(false);
+  };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setIsSubmitting(true)
+    e.preventDefault();
+    
+    if (!firebaseReady) {
+      console.error("Firebase is not ready");
+      return;
+    }
+
+    setIsSubmitting(true);
 
     try {
       const docRef = await addDoc(collection(db, "registrations"), {
         ...formData,
         imageUrl: image || null,
         timestamp: serverTimestamp(),
-      })
-      console.log("Document written with ID: ", docRef.id)
-
-      router.push(`/matched-images?name=${encodeURIComponent(formData.name)}`)
+      });
+      console.log("Document written with ID: ", docRef.id);
+      router.push(`/matched-images?name=${encodeURIComponent(formData.name)}`);
     } catch (error) {
-      console.error("Error adding document: ", error)
-      setIsSubmitting(false)
+      console.error("Error adding document: ", error);
+      setIsSubmitting(false);
     }
-  }
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br flex item-center from-teal-50 via-white to-emerald-50">
+    <div className="min-h-screen bg-gradient-to-br flex items-center from-teal-50 via-white to-emerald-50">
       <main className="container mx-auto px-4 py-12">
-        <div className="max-w-5xl flex item-center mx-auto">
+        <div className="max-w-5xl flex items-center mx-auto">
           <div className="relative">
             <div className="absolute -inset-1 bg-gradient-to-r from-teal-200 to-emerald-200 rounded-3xl blur-sm"></div>
             <div className="relative bg-white rounded-3xl overflow-hidden shadow-xl">
@@ -140,7 +153,7 @@ export default function RegisterPage() {
                         <div className="flex flex-col gap-4">
                           {image ? (
                             <div className="flex flex-col items-center">
-                              <div className="relative h-32 w-32 rounded-full overflow-hidden border-4 border-gradient-to-r from-teal-500 to-emerald-500">
+                              <div className="relative h-32 w-32 rounded-full overflow-hidden border-4 border-teal-500">
                                 <Image
                                   src={image}
                                   alt="Profile Preview"
@@ -187,10 +200,11 @@ export default function RegisterPage() {
 
                       <Button
                         type="submit"
-                        disabled={isSubmitting}
+                        disabled={isSubmitting || !firebaseReady}
                         className="w-full py-6 rounded-lg bg-gradient-to-r from-teal-600 to-emerald-500 hover:from-teal-700 hover:to-emerald-600 text-white font-medium text-lg"
                       >
-                        {isSubmitting ? "Processing..." : "Complete Registration"}
+                        {!firebaseReady ? "Initializing..." : 
+                         isSubmitting ? "Processing..." : "Complete Registration"}
                       </Button>
                     </form>
                   </div>
@@ -212,5 +226,5 @@ export default function RegisterPage() {
         </div>
       )}
     </div>
-  )
+  );
 }
