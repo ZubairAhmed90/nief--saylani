@@ -41,7 +41,7 @@ export function PartnerScroll() {
 
   return (
     <div className="w-full overflow-hidden">
-      <div ref={scrollRef} className="flex items-center gap-8 py-4 overflow-x-hidden whitespace-nowrap">
+      <div ref={scrollRef} className="flex items-center gap-8 py-4 overflow-x-hidden whitespace-nowrap sm:mx-4">
         {/* Display original partners */}
         {partnerImages.map((partner) => (
           <div key={partner.id} className="flex-shrink-0">

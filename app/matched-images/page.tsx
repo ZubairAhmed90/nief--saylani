@@ -1,25 +1,25 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { useSearchParams } from "next/navigation"
-import { ArrowLeft, Download, Share2 } from "lucide-react"
-import { Button } from "../../components/ui/button"
-import { ImageModal } from "../../components/image-modal"
-import Image from "next/image"
-import Header from "../../components/header"
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { ArrowLeft, Download, Share2 } from "lucide-react";
+import { Button } from "../../components/ui/button";
+import { ImageModal } from "../../components/image-modal";
+import Image from "next/image";
+import Header from "../../components/header";
 
 interface MatchedImage {
-  id: number
-  title: string
-  category: string
-  url: string
+  id: number;
+  title: string;
+  category: string;
+  url: string;
 }
 
 export default function MatchedImagesPage() {
-  const searchParams = useSearchParams()
-  const userName = searchParams.get("name") || "User"
-  const [isLoading, setIsLoading] = useState<boolean>(true)
-  const [selectedImage, setSelectedImage] = useState<MatchedImage | null>(null)
+  const searchParams = useSearchParams();
+  const userName = searchParams.get("name") || "User";
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [selectedImage, setSelectedImage] = useState<MatchedImage | null>(null);
 
   const matchedImages: MatchedImage[] = [
     {
@@ -94,36 +94,39 @@ export default function MatchedImagesPage() {
       category: "City",
       url: "/placeholder.svg?height=600&width=800&text=Image+12",
     },
-  ]
+  ];
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setIsLoading(false)
-    }, 1500)
+      setIsLoading(false);
+    }, 1500);
 
-    return () => clearTimeout(timer)
-  }, [])
+    return () => clearTimeout(timer);
+  }, []);
 
   const openImageModal = (image: MatchedImage) => {
-    setSelectedImage(image)
-  }
+    setSelectedImage(image);
+  };
 
   const closeImageModal = () => {
-    setSelectedImage(null)
-  }
+    setSelectedImage(null);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-emerald-50">
       <Header showBackLink={true} hideRegisterLink={true} backLinkText="Home" />
 
       <main className="container mx-auto px-3 py-6">
-        <div className="relative mb-6">
+        <div className="relative mb-6 sm:mx-5">
           <div className="absolute -inset-1 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-xl blur-sm"></div>
           <div className="relative bg-white rounded-xl overflow-hidden shadow-lg">
             <div className="p-4 md:p-6">
-              <h1 className="text-2xl md:text-3xl font-bold text-teal-800 mb-2">Welcome, {userName}!</h1>
+              <h1 className="text-2xl md:text-3xl font-bold text-teal-800 mb-2">
+                Welcome, {userName}!
+              </h1>
               <p className="text-sm md:text-base text-gray-600">
-                Based on your selfie, we've matched you with these images. Tap any image to view or download.
+                Based on your selfie, we've matched you with these images. Tap
+                any image to view or download.
               </p>
             </div>
           </div>
@@ -132,7 +135,9 @@ export default function MatchedImagesPage() {
         {isLoading ? (
           <div className="flex flex-col items-center justify-center py-12">
             <div className="w-12 h-12 border-3 border-teal-500 border-t-transparent rounded-full animate-spin mb-3"></div>
-            <p className="text-teal-800 text-sm font-medium">Matching images...</p>
+            <p className="text-teal-800 text-sm font-medium">
+              Matching images...
+            </p>
           </div>
         ) : (
           <>
@@ -140,9 +145,13 @@ export default function MatchedImagesPage() {
               Your Matched Images
             </h2>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-4 mx-2 sm:mx-5">
               {matchedImages.map((image) => (
-                <div key={image.id} className="group relative" onClick={() => openImageModal(image)}>
+                <div
+                  key={image.id}
+                  className="group relative"
+                  onClick={() => openImageModal(image)}
+                >
                   <div className="absolute -inset-0.5 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-lg blur-[1px] opacity-70 group-hover:opacity-100 transition-opacity"></div>
                   <div className="relative bg-white rounded-lg overflow-hidden shadow-md">
                     <div className="relative aspect-square overflow-hidden">
@@ -154,15 +163,19 @@ export default function MatchedImagesPage() {
                         className="object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-2">
-                        <h3 className="font-medium text-white text-sm truncate">{image.title}</h3>
-                        <p className="text-xs text-teal-100">{image.category}</p>
+                        <h3 className="font-medium text-white text-sm truncate">
+                          {image.title}
+                        </h3>
+                        <p className="text-xs text-teal-100">
+                          {image.category}
+                        </p>
                       </div>
                     </div>
                     <div className="p-2 flex justify-between">
                       <button
                         className="text-teal-600 hover:text-teal-800 transition-colors"
                         onClick={(e) => {
-                          e.stopPropagation()
+                          e.stopPropagation();
                           // Download logic
                         }}
                       >
@@ -171,7 +184,7 @@ export default function MatchedImagesPage() {
                       <button
                         className="text-teal-600 hover:text-teal-800 transition-colors"
                         onClick={(e) => {
-                          e.stopPropagation()
+                          e.stopPropagation();
                           // Share logic
                         }}
                       >
@@ -192,7 +205,13 @@ export default function MatchedImagesPage() {
         )}
       </main>
 
-      {selectedImage && <ImageModal isOpen={!!selectedImage} onClose={closeImageModal} image={selectedImage} />}
+      {selectedImage && (
+        <ImageModal
+          isOpen={!!selectedImage}
+          onClose={closeImageModal}
+          image={selectedImage}
+        />
+      )}
     </div>
-  )
+  );
 }
