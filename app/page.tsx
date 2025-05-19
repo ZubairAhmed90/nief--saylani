@@ -115,7 +115,7 @@ const Home: React.FC = () => {
                 key={image.id}
                 className={`relative group ${
                   index === 0
-                    ? "sm:col-span-2 lg:col-span-3 h-[300px]"
+                    ? "sm:col-span-2 lg:col-span-3 h-[450px]"
                     : "h-[200px]"
                 }`}
               >
@@ -129,7 +129,7 @@ const Home: React.FC = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-teal-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
                     <div className="p-4 text-white">
-                      <h3 className="text-lg font-semibold">{image.title}</h3>
+                      {/* <h3 className="text-lg font-semibold">{image.title}</h3> */}
                     </div>
                   </div>
                 </div>
